@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat
+  m_Name: MatInk
   m_Shader: {fileID: 4800000, guid: d6c6fce7f724d4441b80539473b3f493, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

@@ -20,6 +20,8 @@ public class Kaleidoscope : MonoBehaviour
 
     public string Url = "";
 
+    public Material MatDefault;
+
     IEnumerator DownloadImage(string MediaUrl)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
@@ -28,7 +30,7 @@ public class Kaleidoscope : MonoBehaviour
             Debug.Log(request.error);
         else
         {
-            
+            R.material = MatDefault;
             R.material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
     }
@@ -47,7 +49,11 @@ public class Kaleidoscope : MonoBehaviour
         if (Url != "" || URLParameters.GetSearchParameters().TryGetValue("url",out Url) )
         {
             StartCoroutine(DownloadImage(UnityWebRequest.UnEscapeURL(Url)));
-        }       
+        }
+        else
+        {
+            R.material = MatDefault;
+        }
 
         SliceTextureAngle = 2 * Mathf.PI / SliceCount;
 
