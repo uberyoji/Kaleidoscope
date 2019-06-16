@@ -8,10 +8,10 @@ https://uberyoji.github.io/Kaleidoscope/
 | slicecount    | integer | Sets number of slice            |
 | scrollspeed   | float   | Speed at which uvs are scrolled |
 | rotationspeed | float   | Speed at which uvs are rotated  |
-| offsetx | float   | Texture offset  |
-| rotationspeed | float   | Speed at which uvs are rotated  |
-| rotationspeed | float   | Speed at which uvs are rotated  |
-| rotationspeed | float   | Speed at which uvs are rotated  |
+| offsetx | float   | Texture offset x  |
+| offsety | float   | Texture offset y  |
+| tilingx | float   | Tiling factor x  |
+| tilingy | float   | Tiling factor y  |
 | url           | string  | Url of image to load. Url must be encoded. Image must be power of two.  |
 
 
