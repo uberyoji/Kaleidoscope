@@ -17,7 +17,7 @@ https://uberyoji.github.io/Kaleidoscope/
 
 Ex: https://uberyoji.github.io/Kaleidoscope/?slicecount=32&scrollspeed=-0.1&rotationspeed=0.25
 
-## Know issue
+## Known issue
 If you try to use an url to an image, and the remote server does not have CORS set up or configured correctly, you will see an error like this in the browser console:
 Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://myserver.com/. This can be fixed by moving the resource to the same domain or enabling CORS.
 
