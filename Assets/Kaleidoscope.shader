@@ -28,6 +28,7 @@ Shader "Custom/Kaleidoscope"
 				float _Angle;
 				float _Scroll;
 				float4 _Pivot;
+				float4 _MainTex_ST;
 
 				v2f vert(appdata_base v)
 				{
@@ -42,7 +43,7 @@ Shader "Custom/Kaleidoscope"
 					float2x2 rot = float2x2(cosAngle, -sinAngle, sinAngle, cosAngle);
 
 					// Rotation consedering pivot
-					float2 uv = v.texcoord.xy;
+					float2 uv = TRANSFORM_TEX(v.texcoord.xy, _MainTex);
 					
 					uv.y += _Scroll;
 					uv -= _Pivot.xy;

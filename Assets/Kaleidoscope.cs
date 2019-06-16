@@ -20,6 +20,9 @@ public class Kaleidoscope : MonoBehaviour
 
     public string Url = "";
 
+    public Vector2 TexTiling;
+    public Vector2 TexOffset;
+
     public Material MatDefault;
 
     IEnumerator DownloadImage(string MediaUrl)
@@ -45,6 +48,10 @@ public class Kaleidoscope : MonoBehaviour
         SliceCount = URLParameters.GetSearchParameters().GetInt("slicecount", SliceCount);
         ScrollSpeed = (float)URLParameters.GetSearchParameters().GetDouble("scrollspeed", ScrollSpeed);
         RotationSpeed = (float)URLParameters.GetSearchParameters().GetDouble("rotationspeed", RotationSpeed);
+        TexTiling.x = (float)URLParameters.GetSearchParameters().GetDouble("tilingx", TexTiling.x);
+        TexTiling.y = (float)URLParameters.GetSearchParameters().GetDouble("tilingy", TexTiling.y);
+        TexOffset.x = (float)URLParameters.GetSearchParameters().GetDouble("offsetx", TexOffset.x);
+        TexOffset.y = (float)URLParameters.GetSearchParameters().GetDouble("offsety", TexOffset.y);
 
         if (Url != "" || URLParameters.GetSearchParameters().TryGetValue("url",out Url) )
         {
@@ -55,9 +62,15 @@ public class Kaleidoscope : MonoBehaviour
             R.material = MatDefault;
         }
 
+        if (SliceCount % 2 != 0)
+            ++SliceCount;       // need even slice count for uvs to match.
+
         SliceTextureAngle = 2 * Mathf.PI / SliceCount;
 
         GetComponent<MeshFilter>().sharedMesh = GenerateMesh();
+
+        MatDefault.SetTextureOffset("_MainTex", TexOffset);
+        MatDefault.SetTextureScale("_MainTex", TexTiling);
     }
 
     // Update is called once per frame
@@ -84,20 +97,20 @@ public class Kaleidoscope : MonoBehaviour
 
         for(int i=0;i<SliceCount; i++)
         {
-            V[2*i + 1] = new Vector3(Mathf.Cos(a) * SliceLength, Mathf.Sin(a) * SliceLength, 0f);
+            V[2*i + 1] = new Vector3(Mathf.Sin(a) * SliceLength, Mathf.Cos(a) * SliceLength, 0f);
             T[2*i + 1] = TC[i%2];
 
             a += da;
 
-            V[2*i + 2] = new Vector3(Mathf.Cos(a) * SliceLength, Mathf.Sin(a) * SliceLength, 0f);
+            V[2*i + 2] = new Vector3(Mathf.Sin(a) * SliceLength, Mathf.Cos(a) * SliceLength, 0f);
             T[2*i + 2] = TC[(i+1)%2];
         }
 
         for( int s=0;s<SliceCount;s++)
         {
             I[3*s] = 0;
-            I[3*s+1] = 2*s+2;
-            I[3*s+2] = 2*s+1;
+            I[3*s+1] = 2*s+1;
+            I[3*s+2] = 2*s+2;
         }
         
         Mesh M = new Mesh
